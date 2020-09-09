@@ -1,13 +1,19 @@
 package com.leonardogarcia.course.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Table(name = "tb_User")
 public class User implements Serializable {		
 	
 	private static final long serialVersionUID = 1L;
@@ -19,6 +25,10 @@ public class User implements Serializable {
 	private String userEmail;
 	private String userPhone;
 	private String userPassword;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "user")
+	private List<Order> listOrder;
 	
 	public User() {		
 	}
@@ -71,6 +81,10 @@ public class User implements Serializable {
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
 	}
+	
+	public List<Order> getListOrder() {
+		return listOrder;
+	}	
 
 	@Override
 	public int hashCode() {
